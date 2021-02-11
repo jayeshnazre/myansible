@@ -4,4 +4,10 @@
     - name: Hello Message
       debug:
         msg: "Hello World!"
+    - name: Create a k8s namespace
+      community.kubernetes.k8s:
+        name: portal1
+        api_version: v1
+        kind: Namespace
+        state: present
 
