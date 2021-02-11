@@ -11,3 +11,10 @@
     community.kubernetes.k8s_info:
       kind: Node
       namespace: default 
+  - name: Create a k8s namespace
+    community.kubernetes.k8s_info:
+      kind: Namespace
+      name: testing
+      state: present
+      api_version: v1
+
