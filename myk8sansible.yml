@@ -1,5 +1,5 @@
 ---
-- name: Deploy my portal app
+- name: Deploy my portal app using Ansible Tower - awx
   hosts: all
   gather_facts: no
 
