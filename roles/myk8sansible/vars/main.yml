@@ -1,0 +1,9 @@
+---
+# vars file for myk8sansible
+myportals:
+  - { name: 'rwauth', namespace: 'default', replicacount: 1, version: v1, serviceport: 9091, podport: 4545, nodeport: 31091 }
+  - { name: 'rwcust', namespace: 'default', replicacount: 1, version: v1, serviceport: 9091, podport: 4545, nodeport: 31092 }
+  - { name: 'rwvend', namespace: 'default', replicacount: 1, version: v1, serviceport: 9091, podport: 4545, nodeport: 31093 }
+  - { name: 'rwbi', namespace: 'default', replicacount: 1, version: v1, serviceport: 9091, podport: 4545, nodeport: 31094 }
+mytenantname: istiotenant1
+mytenantnamespace: "default"

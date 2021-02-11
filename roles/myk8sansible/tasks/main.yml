@@ -1,0 +1,31 @@
+---
+# tasks file for myk8sansible
+- name: looping through myportals variables
+  debug:
+    msg: "{{ item }}"
+  loop: "{{ myportals }}"
+- name: Create portal deployments/replicasets and pods
+  community.kubernetes.k8s:
+    definition: "{{ lookup('template', 'myportaldeploy.yml', template_vars=dict(portallocalvars=item)) | from_yaml }}"
+    state: present
+  loop: "{{ myportals }}"  
+- name: Create portal services
+  community.kubernetes.k8s:
+    definition: "{{ lookup('template', 'myportalservice.yml', template_vars=dict(portallocalvars=item)) | from_yaml }}"
+    state: present
+  loop: "{{ myportals }}"
+- name: Create portal istio gateway
+  community.kubernetes.k8s:
+    definition: "{{ lookup('template', 'myportalgateway.yml', template_vars=dict(namespace=mytenantnamespace)) | from_yaml }}"
+    state: present  
+- name: Create portal istio Virtual Service
+  community.kubernetes.k8s:
+    definition: "{{ lookup('template', 'myportalvirtuals.yml', template_vars=dict(namespace=mytenantnamespace)) | from_yaml }}"
+    state: present
+- name: Create portal istio Destination Rules
+  community.kubernetes.k8s:
+    definition: "{{ lookup('template', 'myportaldestinationrule.yml', template_vars=dict(portallocalvars=item)) | from_yaml }}"
+    state: present  
+  loop: "{{ myportals }}"
+
+

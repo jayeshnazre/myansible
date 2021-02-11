@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ portallocalvars.name }}deploy
+  namespace: {{ portallocalvars.namespace }}
+  labels:
+      app: {{ portallocalvars.name }}
+      version: {{ portallocalvars.version }}
+spec:
+  replicas: {{ portallocalvars.replicacount }}
+  selector:
+    matchLabels:
+      app: {{ portallocalvars.name }}
+      version: {{ portallocalvars.version }}
+  template:
+    metadata:
+      labels:
+        app: {{ portallocalvars.name }}
+        version: {{ portallocalvars.version }}
+    spec:
+      containers:
+      - name: {{ portallocalvars.name }}c
+        image: "{{ portallocalvars.name }}:{{ portallocalvars.version }}"
+        imagePullPolicy: IfNotPresent
+

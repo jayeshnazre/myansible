@@ -1,0 +1,29 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: {{ mytenantname }}vs
+  namespace: {{ namespace }}
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - {{ mytenantname }}-gateway
+  http:
+{% for dict_item in myportals %}
+  - name: {{ dict_item.name }}rule
+    match:
+    - headers:
+        ":authority":
+          regex: "{{ mytenantname }}.*"
+      uri:
+        prefix: "/{{ dict_item.name }}"
+    rewrite:
+      uri: "/"
+    route:
+    - destination:
+        host: {{ dict_item.name }}ser
+        subset: {{ dict_item.version }}
+        port:
+          number: {{ dict_item.serviceport }}
+{% endfor %}
+

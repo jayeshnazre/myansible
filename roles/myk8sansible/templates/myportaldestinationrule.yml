@@ -1,0 +1,15 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: {{ portallocalvars.name }}destrule
+  namespace: {{portallocalvars.namespace }}
+spec:
+  host: {{ portallocalvars.name }}ser
+  trafficPolicy:
+    loadBalancer:
+      simple: ROUND_ROBIN
+  subsets:
+  - name: {{ portallocalvars.version }}
+    labels:
+      version: {{ portallocalvars.version }}
+
