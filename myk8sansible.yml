@@ -12,7 +12,7 @@
       kind: Node
       namespace: default 
   - name: Create a k8s namespace
-    community.kubernetes:
+    community.kubernetes.k8s:
       kind: Namespace
       name: testing
       api_version: v1
