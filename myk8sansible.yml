@@ -1,13 +1,13 @@
-- name: Hello World Sample
+---
+- name: RETRIEVE WORKER NODE DETAILS FROM KUBERNETES NODE
   hosts: all
-  tasks:
-    - name: Hello Message
-      debug:
-        msg: "Hello World!"
-    - name: Create a k8s namespace
-      community.kubernetes.k8s:
-        name: portal1
-        api_version: v1
-        kind: Namespace
-        state: present
+  gather_facts: no
 
+  collections: 
+    - community.kubernetes
+  
+  tasks:
+  - name: GET WORKER NODE DETAILS
+    community.kubernetes.k8s_info:
+      kind: Node
+      namespace: default 
